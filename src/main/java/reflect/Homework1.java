@@ -12,7 +12,7 @@ public class Homework1 {
      * Prints the declared methods of java.lang.String sorted by name.
      */
     public void streamPipeline1() {
-        Arrays.stream(String.class.getDeclaredMethods()).map(method -> method.getName()).sorted().forEach(System.out::println);
+        Arrays.stream(String.class.getDeclaredMethods()).sorted(Comparator.comparing(method -> method.getName(), Comparator.naturalOrder())).forEach(System.out::println);
     }
 
     /**
@@ -27,28 +27,28 @@ public class Homework1 {
      * same type, sorted by name.
      */
     public void streamPipeline3() {
-        Arrays.stream(String.class.getDeclaredMethods()).filter(method -> method.getParameterCount() >= 2 && Arrays.stream(method.getParameterTypes()).distinct().count() == 1).map(method -> method.getName()).distinct().sorted().forEach(System.out::println);
+        Arrays.stream(String.class.getDeclaredMethods()).filter(method -> method.getParameterCount() >= 2 && Arrays.stream(method.getParameterTypes()).distinct().count() == 1).sorted(Comparator.comparing(method -> method.getName(), Comparator.naturalOrder())).forEach(System.out::println);
     }
 
     /**
      * Prints all distinct return types of the declared methods of java.lang.String sorted alphabetically.
      */
     public void streamPipeline4() {
-        Arrays.stream(String.class.getDeclaredMethods()).map(method -> method.getReturnType()).distinct().forEach(System.out::println);
+        Arrays.stream(String.class.getDeclaredMethods()).map(method -> method.getReturnType()).distinct().sorted(Comparator.comparing(type -> type.getName(), Comparator.naturalOrder())).forEach(System.out::println);
     }
 
     /**
      * Prints the declared methods of java.lang.String with at least one boolean parameter, sorted by name.
      */
     public void streamPipeline5() {
-        Arrays.stream(String.class.getDeclaredMethods()).filter(method -> Arrays.stream(method.getParameterTypes()).filter(parameter -> parameter.getName() == "boolean").count() >= 1).map(method -> method.getName()).sorted().forEach(System.out::println);
+        Arrays.stream(String.class.getDeclaredMethods()).filter(method -> Arrays.stream(method.getParameterTypes()).filter(parameter -> parameter.getName() == "boolean").count() >= 1).sorted(Comparator.comparing(method -> method.getName(), Comparator.naturalOrder())).forEach(System.out::println);
     }
 
     /**
      * Prints the declared methods of java.lang.String whose parameters are all of type int, sorted by name.
      */
     public void streamPipeline6() {
-        Arrays.stream(String.class.getDeclaredMethods()).filter(method -> Arrays.stream(method.getParameterTypes()).filter(parameter -> parameter.getName() != "int").count() == 0).map(method -> method.getName()).sorted().forEach(System.out::println);
+        Arrays.stream(String.class.getDeclaredMethods()).filter(method -> Arrays.stream(method.getParameterTypes()).filter(parameter -> parameter.getName() != "int").count() == 0 && method.getParameterCount() != 0).sorted(Comparator.comparing(method -> method.getName(), Comparator.naturalOrder())).forEach(System.out::println);
     }
 
     /**
@@ -90,7 +90,7 @@ public class Homework1 {
      * Prints all distinct parameter types of the declared methods of java.lang.String sorted alphabetically.
      */
     public void streamPipeline12() {
-        Arrays.stream(String.class.getDeclaredMethods()).flatMap(method -> Arrays.stream(method.getParameterTypes()).map(parameter -> parameter.getName())).distinct().sorted().forEach(System.out::println);
+        Arrays.stream(String.class.getDeclaredMethods()).flatMap(method -> Arrays.stream(method.getParameterTypes())).distinct().sorted(Comparator.comparing(type -> type.getName(), Comparator.naturalOrder())).forEach(System.out::println);
     }
 
 }
